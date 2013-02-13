@@ -46,7 +46,6 @@ def sum_first_n_primes(n):
     while(num_primes < n):
         i = i + 1 # move on to the next number
         if(is_prime(i)):
-            print i
             num_primes = num_primes + 1 # we caught a prime
             ans = ans + i            
 
