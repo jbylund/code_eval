@@ -2,14 +2,6 @@
 from math import sqrt, ceil
 import sys
 
-# return true if palindrome, otherwise false
-def is_palindrome(num_to_test):
-    stringval = `num_to_test`
-    reverse_stringval = stringval[::-1]
-    if(stringval == reverse_stringval):
-        return True
-    return False
-
 # return true if prime, otherwise false
 def is_prime(num_to_test):
     # all primes are of the form 6k +- 1, with the exception of 2 and 3
@@ -47,11 +39,19 @@ def is_prime(num_to_test):
 
     return True
 
-for i in range(1000,1,-1):
-    if(not is_palindrome(i)):
-        continue
-    if(is_prime(i)):
-        print i
-        sys.exit(0)
+def sum_first_n_primes(n):
+    num_primes = 0
+    i = 0
+    ans = 0
+    while(num_primes < n):
+        i = i + 1 # move on to the next number
+        if(is_prime(i)):
+            print i
+            num_primes = num_primes + 1 # we caught a prime
+            ans = ans + i            
 
-sys.exit(1)
+    return ans
+
+print sum_first_n_primes(1000)
+
+sys.exit(0)
