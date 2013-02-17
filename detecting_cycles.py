@@ -1,15 +1,15 @@
 #!/usr/bin/python
-
-#Sample code to read in test cases:
-
 import sys
+
+def find_first_cycle(ilist):
+    print ilist
+    return
 
 test_cases = open(sys.argv[1], 'r')
 for test in test_cases:
-    # ignore test if it is an empty line
+    test = test.rstrip()
     if(0 == len(test)):
         continue
-
-    # 'test' represents the test case, do something with it
+    print find_first_cycle(test.split(" "))
 
 test_cases.close()
