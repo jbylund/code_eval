@@ -1,29 +1,16 @@
 #!/usr/bin/python
 import sys
 
-class hand_of_change:
-    def __init__(self,ones,threes,fives):
-        self.ones   = ones
-        self.threes = threes
-        self.fives  = fives
-
-    def num_coins(self):
-        return self.ones + self.threes + self.fives
-
-    def value(self):
-        return self.ones + 3 * self.threes + 5 * self.fives
-
-    def __repr__(self):
-        ans = `self.value()` + " = "
-        if(self.fives > 0):
-            ans += `self.fives` + " fives,"
-        if(self.threes > 0):
-            ans += `self.threes` + " threes,"
-        if(self.ones > 0):
-            ans += `self.ones` + " ones,"
-
-def list_hands_up_to(max_value):
-    return list()
+def min_coins_equaling(target):
+    min_coins  = target
+    for fives in range(1+target//5):
+        fives_val = 5 * fives
+        for threes in range(max(1,1+(target-fives_val)//3)):
+            threes_val = 3 * threes
+            ones = target - fives_val - threes_val
+            if(ones >= 0):
+                min_coins = min(min_coins, fives+threes+ones)                
+    return min_coins
 
 values = list()
 test_cases = open(sys.argv[1], 'r')
@@ -33,7 +20,11 @@ for test in test_cases:
     values.append(int(test))
 test_cases.close()
 
-print values
-max_value = max(values)
-hands = list_hands_up_to(max_value)
+#print values
+for i in range(len(values)):
+    print min_coins_equaling(values[i])
+
+
+#max_value = max(values)
+#hands = list_hands_up_to(max_value)
 

@@ -1,24 +1,28 @@
 #!/usr/bin/python
 import sys
 
-# return the number of ways that
-# inum elements of iarray can sum to target
-def num_ways_to_decode(istring):
-    if(0 == len(istring)):
-        return 0
-    if(1 == len(istring)):
-        print "1 for " + `istring[0]`
-        return 1
+class code_tree:
+    def __init__(self,istring):
+        self.left  = "0"
+        self.right = "0"
+        self.left_tree = -1
+        self.right_tree = -1
+        if(0 == len(istring)):
+            return
+        self.left  = istring[0]
+        if(1 == len(istring)):
+            return
+        self.right      = istring[0:1+1]
+        self.left_tree  = code_tree(istring[1:len(istring)])
+        self.right_tree = code_tree(istring[2:len(istring)])
 
-    if(len(istring) > 1):
-        if(int(istring[0:1]) < 27):
-            print "len(istring) = " + `len(istring)`
-            print "istring = |" + istring + "|"
-            print "2 for " + `istring[0:1]`
-            return 2 + num_ways_to_decode(istring[1:]) + num_ways_to_decode(istring[2:])
-
-    print "1 for " + `istring[0]`
-    return 1 + num_ways_to_decode(istring[1:])
+    def num_solutions(self):
+        if(-1 == self.left_tree):
+            return 1
+        if((10 <= int(self.right)) and (int(self.right) < 27)):
+            return self.left_tree.num_solutions() + self.right_tree.num_solutions()
+        else:
+            return self.left_tree.num_solutions()
 
 test_cases = open(sys.argv[1], 'r')
 for test in test_cases:
@@ -26,7 +30,6 @@ for test in test_cases:
     # ignore test if it is an empty line
     if(0 == len(test)):
         continue
-#    # 'test' represents the test case, do something with it
-    print num_ways_to_decode(test)
+    print code_tree(test).num_solutions()
 
 test_cases.close()
