@@ -1,0 +1,16 @@
+#!/usr/bin/python
+import sys
+
+test_cases = open(sys.argv[1], 'r')
+for test in test_cases:
+    test = test.rstrip()
+    if(0 == len(test)):
+        continue
+    test = test.split("|")
+    first_list = map(int,test[0].split())
+    second_list = map(int,test[1].split())
+    answers = list()
+    for i in xrange(len(first_list)):
+      answers.append(first_list[i]*second_list[i])
+    print " ".join(map(str,answers))
+test_cases.close()

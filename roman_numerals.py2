@@ -1,0 +1,34 @@
+#!/usr/bin/python
+from sys import argv
+
+key = list()
+key.append(tuple(['M', 1000]))
+key.append(tuple(['CM', 900]))
+key.append(tuple(['D', 500]))
+key.append(tuple(['CD', 400]))
+key.append(tuple(['C', 100]))
+key.append(tuple(['XC', 90]))
+key.append(tuple(['L', 50]))
+key.append(tuple(['XL', 40]))
+key.append(tuple(['X', 10]))
+key.append(tuple(['IX', 9]))
+key.append(tuple(['V', 5]))
+key.append(tuple(['IV', 4]))
+key.append(tuple(['I', 1]))
+
+def roman(istring):
+  value = int(istring)
+  reprensentation = list()
+  for numeral in key:
+    while numeral[1] <= value:
+      value -= numeral[1]
+      reprensentation.append(numeral[0])
+  return "".join(reprensentation)
+
+test_cases = open(argv[1], 'r')
+for test in test_cases:
+  test = test.rstrip()
+  if(0 == len(test)):
+    continue
+  print roman(test)
+test_cases.close()

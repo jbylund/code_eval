@@ -1,0 +1,23 @@
+#!/usr/bin/python
+import sys
+
+test_cases = open(sys.argv[1], 'r')
+for test in test_cases:
+    test = test.rstrip()
+    if(0 == len(test)):
+        continue
+    items = test.split(",")
+    words = list()
+    nums = list()
+    for item in items:
+      try:
+        nums.append(int(item))
+      except:
+        words.append(item)
+    if(len(words) > 0 and len(nums) > 0):
+      print ",".join(words) + "|" + ",".join(map(str,nums))
+    elif(len(words) > 0):
+      print ",".join(words)
+    else:
+      print ",".join(map(str,nums))
+test_cases.close()

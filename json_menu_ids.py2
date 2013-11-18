@@ -1,0 +1,30 @@
+#!/usr/bin/python
+import sys
+import json
+
+def sum_ids(menu):
+  try:
+    items = menu['menu']['items']
+  except:
+    print 0
+    return
+  isum = 0
+  for item in items:
+    try:
+      if 'label' in item:
+        try:
+          isum += item['id']
+        except:
+          pass
+    except:
+      pass
+  print isum
+
+test_cases = open(sys.argv[1], 'r')
+for test in test_cases:
+  test = test.rstrip()
+  if(0 == len(test)):
+    continue
+  menu = json.loads(test)
+  sum_ids(menu)
+test_cases.close()

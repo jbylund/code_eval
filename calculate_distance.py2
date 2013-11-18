@@ -1,0 +1,15 @@
+#!/usr/bin/python
+import sys, math
+
+def dist(p1, p2):
+  return int(math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2))
+
+test_cases = open(sys.argv[1], 'r')
+for test in test_cases:
+    test = test.strip().strip("(").strip(")")
+    if(0 == len(test)):
+        continue
+    points = test.split(") (")
+    points = map(lambda x: map(lambda y: int(y.strip()), x.split(",")), points)
+    print dist(points[0], points[1])
+test_cases.close()

@@ -1,0 +1,56 @@
+#!/usr/bin/python
+from sys import argv
+
+key = dict()
+key['.-']   = 'A'
+key['-...'] = 'B'
+key['-.-.'] = 'C'
+key['-..']  = 'D'
+key['.']    = 'E'
+key['..-.'] = 'F'
+key['--.']  = 'G'
+key['....'] = 'H'
+key['..']   = 'I'
+key['.---'] = 'J'
+key['-.-']  = 'K'
+key['.-..'] = 'L'
+key['--']   = 'M'
+key['-.']   = 'N'
+key['---']  = 'O'
+key['.--.'] = 'P'
+key['--.-'] = 'Q'
+key['.-.']  = 'R'
+key['...']  = 'S'
+key['-']    = 'T'
+key['..-']  = 'U'
+key['...-'] = 'V'
+key['.--']  = 'W'
+key['-..-'] = 'X'
+key['-.--'] = 'Y'
+key['--..'] = 'Z'
+key['-----'] = '0'
+key['.----'] = '1'
+key['..---'] = '2'
+key['...--'] = '3'
+key['....-'] = '4'
+key['.....'] = '5'
+key['-....'] = '6'
+key['--...'] = '7'
+key['---..'] = '8'
+key['----.'] = '9'
+
+def demorse(iword):
+  letters = iword.split()
+  answer = list()
+  for letter in letters:
+    answer.append(key[letter])
+  return "".join(answer)
+
+test_cases = open(argv[1], 'r')
+for test in test_cases:
+    test = test.rstrip()
+    if(0 == len(test)):
+        continue
+    words = test.split("  ")
+    print " ".join(map(demorse,words))
+test_cases.close()

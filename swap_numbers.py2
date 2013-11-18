@@ -1,0 +1,18 @@
+#!/usr/bin/python
+import sys
+
+def swap(sequence, i):
+  i = map(int,i.split("-"))
+  sequence[i[0]], sequence[i[1]] = sequence[i[1]], sequence[i[0]]
+
+test_cases = open(sys.argv[1], 'r')
+for test in test_cases:
+    test = test.rstrip()
+    if(0 == len(test)):
+        continue
+    sequence = test.split(":")[0].split()
+    swaps = test.split(":")[1].split(", ")
+    for i in swaps:
+      swap(sequence,i)
+    print " ".join(sequence)
+test_cases.close()

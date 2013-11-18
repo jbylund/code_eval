@@ -1,0 +1,16 @@
+#!/usr/bin/python
+import sys
+
+test_cases = open(sys.argv[1], 'r')
+for test in test_cases:
+    test = test.rstrip()
+    if(0 == len(test)):
+        continue
+    test = test.split("|")
+    key = test[0]
+    indexes = map(int,test[1].split())
+    answer = list()
+    for i in indexes:
+      answer.append(key[i-1])
+    print "".join(answer)
+test_cases.close()
