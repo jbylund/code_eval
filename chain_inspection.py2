@@ -1,0 +1,63 @@
+#!/usr/bin/python
+from sys import argv
+import re
+from collections import deque
+
+def chain_is_valid(ichain):
+  if(None == re.search(has_end,ichain)):
+    return False
+  links = map(lambda x: x.split("-"), ichain.split(";"))
+  forward_links = set()
+  for i in xrange(len(links)):
+    try:
+      ifrom = int(links[i][0])
+    except:
+      ifrom = links[i][0]
+    try:
+      to = int(links[i][1])
+    except:
+      to = links[i][1]
+    forward_link = tuple([ifrom,to])
+    if(forward_link in forward_links):
+      print "Doubled link"
+      return False
+    else:
+      forward_links.add(forward_link)
+
+  paired_links = True
+  while paired_links:
+    joined_links = set()
+    to_add = set()
+    to_remove = set()
+    paired_links = False
+    for i in forward_links:
+      if i in to_remove:
+        continue
+      for j in forward_links:
+        if j in to_remove:
+          continue
+        if i == j:
+          continue
+        if i[1] == j[0]:
+          to_remove.add(i)
+          to_remove.add(j)
+          paired_links = True
+          to_add.add(tuple([i[0],j[1]]))
+    forward_links.update(to_add)
+    forward_links.difference_update(to_remove)
+  if(1==len(forward_links)):
+    return True
+  else:
+    return False
+
+has_end = re.compile('END')
+test_cases = open(argv[1], 'r')
+for test in test_cases:
+  test = test.rstrip()
+  if(0 == len(test)):
+    continue
+  if(chain_is_valid(test)):
+    print "GOOD"
+  else:
+    print "BAD"
+test_cases.close()

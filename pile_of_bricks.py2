@@ -1,0 +1,41 @@
+#!/usr/bin/python
+from sys import argv
+from math import sqrt
+
+def bricks_that_pass(iline):
+  bricks_that_pass = list()
+  hole_text = iline.split("|")[0].split(" ")
+  hole_coords = map(lambda x: map(int, x.strip("[").strip("]").split(",")), hole_text)
+  hole_width  = max(hole_coords[0][0], hole_coords[1][0]) - min(hole_coords[0][0], hole_coords[1][0])
+  hole_height = max(hole_coords[0][1], hole_coords[1][1]) - min(hole_coords[0][1], hole_coords[1][1])
+  b = min(hole_width, hole_height)
+  a = max(hole_width, hole_height)
+  bricks = map(lambda x: x.strip("(").strip(")").split(), iline.split("|")[1].split(";"))
+  for brick in bricks:
+    index = int(brick[0])
+    first_corner = map(int, brick[1].strip("]").strip("[").split(","))
+    second_corner = map(int, brick[2].strip("]").strip("[").split(","))
+    dims = list()
+    for i in xrange(len(first_corner)):
+      dims.append(max(first_corner[i], second_corner[i]) - min(first_corner[i], second_corner[i]))
+    dims.sort()
+    q = dims[0]
+    p = dims[1]
+    if (p <= a and q <= b):
+      bricks_that_pass.append(index)
+    elif (p > a):
+      if (q <= b):
+        if( (float(a+b)/float(p+q))**2 + (float(a-b)/float(p-q))**2 >= 2):
+          # bricks_that_pass.append(index)
+          pass
+  if(len(bricks_that_pass) > 0):
+    return ",".join(map(str,sorted(bricks_that_pass)))
+  return "-"
+
+test_cases = open(argv[1], 'r')
+for test in test_cases:
+  test = test.rstrip()
+  if(0 == len(test)):
+    continue
+  print bricks_that_pass(test)
+test_cases.close()
