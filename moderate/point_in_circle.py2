@@ -1,0 +1,21 @@
+#!/usr/bin/python
+from sys import argv
+
+def sqdist(p1,p2):
+  return (p1[0]-p2[0])**2 + (p1[1]-p2[1])**2
+
+test_cases = open(argv[1], 'r')
+for test in test_cases:
+  test = test.rstrip()
+  if(0 == len(test)):
+    continue
+  circle = dict()
+  pieces = test.split(';')
+  for i in pieces:
+    info = i.split(':')
+    circle[info[0].strip()] = map(float,info[1].strip().strip(')').strip('(').split(','))
+  if (sqdist(circle['Center'],circle['Point']) < circle['Radius'][0]**2):
+    print "true"
+  else:
+    print "false"
+test_cases.close()
