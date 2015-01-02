@@ -1,0 +1,22 @@
+#!/usr/bin/python
+from sys import argv
+
+def remove_repetitions(istring):
+  ans = list()
+  for i in istring:
+    if (not ans) or (ans[-1] != i):
+      ans.append(i)
+  return "".join(ans)
+
+def main():
+  with open(argv[1], 'r') as infile:
+    for test in infile:
+      test = test.strip()
+      if(0 == len(test)):
+        continue
+      print remove_repetitions(test)
+
+
+if "__main__" == __name__:
+  main()
+

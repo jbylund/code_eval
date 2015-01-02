@@ -1,0 +1,31 @@
+#!/usr/bin/python
+from sys import argv
+import string
+
+def roller_coaster_case(input_string):
+  ans = list()
+  i = 0
+  for char in input_string:
+    if char in string.ascii_letters:
+      if i % 2:
+        ans.append(char.lower())
+      else:
+        ans.append(char.upper())
+      i += 1
+    else:
+      ans.append(char)
+  return "".join(ans)
+
+
+def main():
+  with open(argv[1], 'r') as infile:
+    for test in infile:
+      test = test.strip()
+      if(0 == len(test)):
+        continue
+      print roller_coaster_case(test)
+
+
+if "__main__" == __name__:
+  main()
+
