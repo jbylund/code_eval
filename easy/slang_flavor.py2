@@ -1,0 +1,44 @@
+#!/usr/bin/python
+from sys import argv
+
+REPLACEMENTS = [
+  ', yeah!',
+  ', this is crazy, I tell ya.',
+  ', can U believe this?',
+  ', eh?',
+  ', aw yea.',
+  ', yo.',
+  '? No way!',
+  '. Awesome!',
+]
+
+NUM_SEEN = 0
+TERMINAL_PUNCTUATION = set([".","?","!"])
+
+def slangify(istring):
+  global NUM_SEEN
+  ans = list()
+  for i in istring:
+    if i in TERMINAL_PUNCTUATION:
+      if (NUM_SEEN % 2):
+        ans.append(REPLACEMENTS[NUM_SEEN // 2 % len(REPLACEMENTS)])
+      else:
+        ans.append(i)
+      NUM_SEEN += 1
+    else:
+      ans.append(i)
+  return "".join(ans)
+
+
+def main():
+  with open(argv[1], 'r') as infile:
+    for test in infile:
+      test = test.strip()
+      if(0 == len(test)):
+        continue
+      print slangify(test)
+
+
+if "__main__" == __name__:
+  main()
+
