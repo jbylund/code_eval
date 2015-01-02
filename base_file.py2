@@ -1,10 +1,15 @@
 #!/usr/bin/python
 from sys import argv
 
-test_cases = open(argv[1], 'r')
-for test in test_cases:
-  test = test.rstrip()
-  if(0 == len(test)):
-    continue
-  print test
-test_cases.close()
+def main():
+  with open(argv[1], 'r') as infile:
+    for test in infile:
+      test = test.strip()
+      if(0 == len(test)):
+        continue
+      print test
+
+
+if "__main__" == __name__:
+  main()
+
