@@ -1,0 +1,20 @@
+#!/usr/bin/python
+from sys import argv
+
+def read_more(istring):
+  if len(istring) <= 55:
+    return istring
+  return istring[:40].rsplit(" ", 1)[0] + "... <Read More>"
+
+def main():
+  with open(argv[1], 'r') as infile:
+    for test in infile:
+      test = test.strip()
+      if(0 == len(test)):
+        continue
+      print read_more(test)
+
+
+if "__main__" == __name__:
+  main()
+
